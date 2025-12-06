@@ -223,6 +223,38 @@ require("monospace").setup({
 })
 ```
 
+### Tmux Integration
+
+The theme can automatically change tmux status line colors when Neovim is active, matching the Monospace theme:
+
+```lua
+require("monospace").setup({
+  variant = "dark",
+  setup_tmux = true, -- Enable tmux status line integration
+})
+```
+
+**What it does:**
+- Changes tmux status line colors to match the Monospace theme when Neovim starts
+- Restores original tmux colors when Neovim exits
+- Updates colors automatically when switching between dark/light variants
+
+**Manual tmux setup:**
+
+You can also manually control tmux colors:
+
+```lua
+local tmux = require("monospace.tmux")
+
+-- Set tmux colors
+tmux.set_status_colors("dark") -- or "light"
+
+-- Restore original colors
+tmux.restore_status_colors()
+```
+
+**Note:** This feature only works when running Neovim inside a tmux session (`$TMUX` environment variable must be set).
+
 ## Screenshots
 
 > Coming soon - screenshots will be added here

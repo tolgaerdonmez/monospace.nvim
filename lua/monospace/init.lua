@@ -7,6 +7,7 @@ local M = {}
 local default_config = {
   variant = "dark", -- "dark" or "light"
   setup_lualine = true, -- Automatically setup lualine theme
+  setup_tmux = false, -- Automatically setup tmux status line colors
 }
 
 -- Current configuration
@@ -26,6 +27,11 @@ function M.setup(opts)
   -- Auto-configure lualine if available
   if config.setup_lualine ~= false then
     M.setup_lualine(config.variant)
+  end
+  
+  -- Auto-configure tmux if enabled
+  if config.setup_tmux then
+    require("monospace.tmux").setup(config.variant)
   end
 end
 
