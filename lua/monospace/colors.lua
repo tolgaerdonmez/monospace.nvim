@@ -113,21 +113,43 @@ function M.extract_colors(theme_data)
   if theme_data.tokenColors then
     for _, token in ipairs(theme_data.tokenColors) do
       if token.scope and token.settings then
-        local scope = type(token.scope) == "table" and token.scope[1] or token.scope
-        if scope == "comment" or scope == "punctuation.definition.comment" then
-          colors.comment = strip_alpha(token.settings.foreground or "#7f8d9f", colors.bg)
-        elseif scope == "keyword" then
-          token_colors.keyword = strip_alpha(token.settings.foreground or "#fd8da3", colors.bg)
-        elseif scope == "string" or scope == "punctuation.definition.string" then
-          token_colors.string = strip_alpha(token.settings.foreground or "#77d5a3", colors.bg)
-        elseif scope == "constant" or scope == "entity.name.constant" then
-          token_colors.constant = strip_alpha(token.settings.foreground or "#92a9ff", colors.bg)
-        elseif scope == "entity" or scope == "entity.name" then
-          token_colors.function_name = strip_alpha(token.settings.foreground or "#bd9cfe", colors.bg)
-        elseif scope == "variable" then
-          token_colors.variable = strip_alpha(token.settings.foreground or "#ffd395", colors.bg)
-        elseif scope == "support" then
-          token_colors.type = strip_alpha(token.settings.foreground or "#92a9ff", colors.bg)
+        -- Handle both single scope strings and arrays of scopes
+        local scopes = type(token.scope) == "table" and token.scope or { token.scope }
+        
+        for _, scope in ipairs(scopes) do
+          if scope == "comment" or scope == "punctuation.definition.comment" or scope == "string.comment" then
+            colors.comment = strip_alpha(token.settings.foreground or "#7f8d9f", colors.bg)
+          elseif scope == "keyword" then
+            token_colors.keyword = strip_alpha(token.settings.foreground or "#fd8da3", colors.bg)
+          elseif scope == "string" or scope == "punctuation.definition.string" then
+            token_colors.string = strip_alpha(token.settings.foreground or "#77d5a3", colors.bg)
+          elseif scope == "constant" or scope == "entity.name.constant" or scope == "variable.other.constant" or scope == "variable.language" then
+            token_colors.constant = strip_alpha(token.settings.foreground or "#92a9ff", colors.bg)
+          elseif scope == "entity" or scope == "entity.name" then
+            token_colors.function_name = strip_alpha(token.settings.foreground or "#bd9cfe", colors.bg)
+          elseif scope == "variable" then
+            token_colors.variable = strip_alpha(token.settings.foreground or "#ffd395", colors.bg)
+          elseif scope == "support" then
+            token_colors.type = strip_alpha(token.settings.foreground or "#92a9ff", colors.bg)
+          elseif scope == "markup.heading" or scope == "markup.heading entity.name" then
+            token_colors.markdown_heading = strip_alpha(token.settings.foreground or "#92a9ff", colors.bg)
+          elseif scope == "markup.bold" or scope == "punctuation.definition.bold" then
+            token_colors.markdown_bold = strip_alpha(token.settings.foreground or "#ffd395", colors.bg)
+          elseif scope == "markup.italic" or scope == "punctuation.definition.italic" then
+            token_colors.markdown_italic = strip_alpha(token.settings.foreground or "#85cdf1", colors.bg)
+          elseif scope == "markup.raw" or scope == "fenced_code.block.language" then
+            token_colors.markdown_code = strip_alpha(token.settings.foreground or "#92a9ff", colors.bg)
+          elseif scope == "markup.inline.raw.string.markdown" then
+            token_colors.markdown_inline_code = strip_alpha(token.settings.foreground or "#77d5a3", colors.bg)
+          elseif scope == "markup.quote" then
+            token_colors.markdown_quote = strip_alpha(token.settings.foreground or "#77d5a3", colors.bg)
+          elseif scope == "constant.other.reference.link" or scope == "string.other.link" then
+            token_colors.markdown_link = strip_alpha(token.settings.foreground or "#77d5a3", colors.bg)
+          elseif scope == "punctuation.definition.list.begin.markdown" then
+            token_colors.markdown_list = strip_alpha(token.settings.foreground or "#ffd395", colors.bg)
+          elseif scope == "markup.strikethrough" or scope == "punctuation.definition.strikethrough" then
+            token_colors.markdown_strikethrough = strip_alpha(token.settings.foreground or "#ffc6d0", colors.bg)
+          end
         end
       end
     end
