@@ -168,6 +168,46 @@ function M.extract_colors(theme_data)
   colors.visual = strip_alpha(c["editor.selectionBackground"] or "#264dcb80", colors.bg)
   colors.search = strip_alpha(c["editor.findMatchBackground"] or "#83431466", colors.bg)
   
+  -- Sidebar/Explorer colors (different from editor background)
+  colors.sidebar_bg = strip_alpha(c["sideBar.background"] or "#10151d", colors.bg)
+  colors.sidebar_fg = strip_alpha(c["sideBar.foreground"] or colors.fg, colors.sidebar_bg)
+  colors.sidebar_border = strip_alpha(c["sideBar.border"] or "#333e4f", colors.sidebar_bg)
+  colors.sidebar_title = strip_alpha(c["sideBarTitle.foreground"] or colors.fg, colors.sidebar_bg)
+  
+  -- List/Tree colors
+  colors.list_hover_bg = strip_alpha(c["list.hoverBackground"] or "#141b25", colors.sidebar_bg)
+  colors.list_hover_fg = strip_alpha(c["list.hoverForeground"] or colors.fg, colors.sidebar_bg)
+  colors.list_selection_bg = strip_alpha(c["list.activeSelectionBackground"] or "#1f2939", colors.sidebar_bg)
+  colors.list_selection_fg = strip_alpha(c["list.activeSelectionForeground"] or colors.fg, colors.sidebar_bg)
+  colors.list_inactive_selection_bg = strip_alpha(c["list.inactiveSelectionBackground"] or "#1f2939", colors.sidebar_bg)
+  colors.list_inactive_selection_fg = strip_alpha(c["list.inactiveSelectionForeground"] or colors.fg, colors.sidebar_bg)
+  colors.list_focus_bg = strip_alpha(c["list.focusBackground"] or "#340099", colors.sidebar_bg)
+  colors.tree_indent = strip_alpha(c["tree.indentGuidesStroke"] or "#333e4f", colors.sidebar_bg)
+  
+  -- Panel colors
+  colors.panel_bg = strip_alpha(c["panel.background"] or "#10151d", colors.bg)
+  colors.panel_border = strip_alpha(c["panel.border"] or "#333e4f", colors.panel_bg)
+  colors.panel_title_active = strip_alpha(c["panelTitle.activeForeground"] or colors.fg, colors.panel_bg)
+  colors.panel_title_inactive = strip_alpha(c["panelTitle.inactiveForeground"] or colors.line_number, colors.panel_bg)
+  
+  -- Quick input / Command palette colors
+  colors.quick_input_bg = strip_alpha(c["quickInput.background"] or "#10151d", colors.bg)
+  colors.quick_input_fg = strip_alpha(c["quickInput.foreground"] or colors.fg, colors.quick_input_bg)
+  colors.quick_input_border = strip_alpha(c["quickInputTitle.background"] or colors.quick_input_bg, colors.quick_input_bg)
+  
+  -- Dropdown/Menu colors
+  colors.dropdown_bg = strip_alpha(c["dropdown.background"] or "#1f2939", colors.bg)
+  colors.dropdown_fg = strip_alpha(c["dropdown.foreground"] or colors.fg, colors.dropdown_bg)
+  colors.dropdown_border = strip_alpha(c["dropdown.border"] or "#3d495a", colors.dropdown_bg)
+  colors.dropdown_list_bg = strip_alpha(c["dropdown.listBackground"] or "#10151d", colors.bg)
+  
+  -- Menu colors
+  colors.menu_bg = strip_alpha(c["menu.background"] or "#10151d", colors.bg)
+  colors.menu_fg = strip_alpha(c["menu.foreground"] or colors.fg, colors.menu_bg)
+  colors.menu_border = strip_alpha(c["menu.border"] or "#3d495a", colors.menu_bg)
+  colors.menu_selection_bg = strip_alpha(c["menu.selectionBackground"] or "#1f2939", colors.menu_bg)
+  colors.menu_selection_fg = strip_alpha(c["menu.selectionForeground"] or colors.fg, colors.menu_selection_bg)
+  
   return colors
 end
 

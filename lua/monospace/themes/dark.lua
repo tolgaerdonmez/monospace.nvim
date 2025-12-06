@@ -53,9 +53,9 @@ function M.setup()
   local highlights = {
     -- Basic
     Normal = { fg = colors.fg, bg = colors.bg },
-    NormalFloat = { fg = colors.fg, bg = colors.bg },
+    NormalFloat = { fg = colors.fg, bg = colors.quick_input_bg },
     NormalNC = { fg = colors.fg, bg = colors.bg },
-    FloatBorder = { fg = colors.border, bg = colors.bg },
+    FloatBorder = { fg = colors.border, bg = colors.quick_input_bg },
     
     -- Cursor
     Cursor = { fg = colors.bg, bg = colors.cursor },
@@ -130,11 +130,13 @@ function M.setup()
     WinBar = { fg = colors.fg, bg = colors.bg },
     WinBarNC = { fg = colors.line_number, bg = colors.bg },
     
-    -- Pmenu
-    Pmenu = { fg = colors.fg, bg = colors.line_highlight },
-    PmenuSel = { fg = colors.fg, bg = colors.visual },
-    PmenuSbar = { bg = colors.line_highlight },
+    -- Pmenu (Popup menu - matches dropdown/menu colors)
+    Pmenu = { fg = colors.menu_fg, bg = colors.menu_bg },
+    PmenuSel = { fg = colors.menu_selection_fg, bg = colors.menu_selection_bg },
+    PmenuSbar = { bg = colors.dropdown_list_bg },
     PmenuThumb = { bg = colors.border },
+    PmenuKind = { fg = colors.function_name or "#bd9cfe" },
+    PmenuExtra = { fg = colors.line_number },
     
     -- Fold
     Folded = { fg = colors.comment, bg = colors.line_highlight },
@@ -143,8 +145,9 @@ function M.setup()
     -- Sign column
     SignColumn = { bg = colors.bg },
     
-    -- Vert split
-    VertSplit = { fg = colors.border },
+    -- Vert split - make invisible for VSCode-like clean boundary
+    VertSplit = { fg = colors.sidebar_bg, bg = colors.sidebar_bg },
+    WinSeparator = { fg = colors.sidebar_bg, bg = colors.sidebar_bg },
     
     -- Non-text
     NonText = { fg = colors.line_number },
@@ -183,6 +186,128 @@ function M.setup()
     ["@boolean"] = { fg = colors.constant or "#92a9ff" },
     ["@error"] = { fg = colors.error },
     ["@warning"] = { fg = colors.warning },
+    
+    -- NvimTree (File Explorer)
+    NvimTreeNormal = { fg = colors.sidebar_fg, bg = colors.sidebar_bg },
+    NvimTreeNormalNC = { fg = colors.sidebar_fg, bg = colors.sidebar_bg },
+    NvimTreeEndOfBuffer = { fg = colors.sidebar_bg, bg = colors.sidebar_bg },
+    NvimTreeRootFolder = { fg = colors.sidebar_title, bold = true },
+    NvimTreeFolderIcon = { fg = colors.function_name or "#bd9cfe" },
+    NvimTreeFolderName = { fg = colors.sidebar_fg },
+    NvimTreeOpenedFolderName = { fg = colors.sidebar_fg, bold = true },
+    NvimTreeClosedFolderName = { fg = colors.sidebar_fg },
+    NvimTreeEmptyFolderName = { fg = colors.line_number },
+    NvimTreeIndentMarker = { fg = colors.tree_indent },
+    NvimTreeWinSeparator = { fg = colors.sidebar_bg, bg = colors.sidebar_bg },
+    NvimTreeWindowPicker = { fg = colors.sidebar_fg, bg = colors.list_selection_bg, bold = true },
+    
+    -- NvimTree Git
+    NvimTreeGitNew = { fg = colors.git_add },
+    NvimTreeGitDirty = { fg = colors.git_change },
+    NvimTreeGitDeleted = { fg = colors.git_delete },
+    NvimTreeGitStaged = { fg = colors.git_add },
+    NvimTreeGitMerge = { fg = colors.warning },
+    NvimTreeGitRenamed = { fg = colors.info },
+    
+    -- NvimTree Diagnostics
+    NvimTreeDiagnosticError = { fg = colors.error },
+    NvimTreeDiagnosticWarn = { fg = colors.warning },
+    NvimTreeDiagnosticInfo = { fg = colors.info },
+    NvimTreeDiagnosticHint = { fg = colors.hint },
+    
+    -- NvimTree Selection/Hover
+    NvimTreeCursorLine = { bg = colors.list_hover_bg },
+    NvimTreeNormalFloat = { fg = colors.sidebar_fg, bg = colors.sidebar_bg },
+    
+    -- Telescope (Command Palette)
+    TelescopePromptBorder = { fg = colors.border, bg = colors.quick_input_bg },
+    TelescopeResultsBorder = { fg = colors.border, bg = colors.quick_input_bg },
+    TelescopePreviewBorder = { fg = colors.border, bg = colors.bg },
+    TelescopePromptTitle = { fg = colors.sidebar_title, bg = colors.quick_input_bg },
+    TelescopeResultsTitle = { fg = colors.sidebar_title, bg = colors.quick_input_bg },
+    TelescopePreviewTitle = { fg = colors.sidebar_title, bg = colors.bg },
+    TelescopePromptNormal = { fg = colors.quick_input_fg, bg = colors.quick_input_bg },
+    TelescopeResultsNormal = { fg = colors.quick_input_fg, bg = colors.quick_input_bg },
+    TelescopePreviewNormal = { fg = colors.fg, bg = colors.bg },
+    TelescopePromptCounter = { fg = colors.line_number, bg = colors.quick_input_bg },
+    TelescopeResultsCounter = { fg = colors.line_number, bg = colors.quick_input_bg },
+    TelescopePreviewCounter = { fg = colors.line_number, bg = colors.bg },
+    TelescopeMatching = { fg = colors.function_name or "#bd9cfe", bold = true },
+    TelescopeSelection = { bg = colors.list_selection_bg, fg = colors.list_selection_fg },
+    TelescopeSelectionCaret = { fg = colors.function_name or "#bd9cfe" },
+    TelescopeMultiSelection = { bg = colors.list_inactive_selection_bg },
+    TelescopeNormal = { fg = colors.fg, bg = colors.quick_input_bg },
+    TelescopeBorder = { fg = colors.border },
+    TelescopePromptPrefix = { fg = colors.function_name or "#bd9cfe" },
+    
+    -- WhichKey
+    WhichKey = { fg = colors.function_name or "#bd9cfe" },
+    WhichKeyGroup = { fg = colors.fg },
+    WhichKeySeparator = { fg = colors.border },
+    WhichKeyDesc = { fg = colors.sidebar_fg },
+    WhichKeyFloat = { bg = colors.quick_input_bg },
+    
+    -- Notify
+    NotifyBackground = { bg = colors.panel_bg },
+    NotifyBorder = { fg = colors.panel_border },
+    NotifyINFOBorder = { fg = colors.info },
+    NotifyWARNBorder = { fg = colors.warning },
+    NotifyERRORBorder = { fg = colors.error },
+    NotifyDEBUGBorder = { fg = colors.line_number },
+    NotifyTRACEBorder = { fg = colors.function_name or "#bd9cfe" },
+    NotifyINFOTitle = { fg = colors.info },
+    NotifyWARNTitle = { fg = colors.warning },
+    NotifyERRORTitle = { fg = colors.error },
+    NotifyINFOBody = { fg = colors.fg, bg = colors.panel_bg },
+    NotifyWARNBody = { fg = colors.fg, bg = colors.panel_bg },
+    NotifyERRORBody = { fg = colors.fg, bg = colors.panel_bg },
+    
+    -- Noice
+    NoiceCmdline = { bg = colors.quick_input_bg },
+    NoiceCmdlineIcon = { fg = colors.function_name or "#bd9cfe" },
+    NoiceCmdlineIconSearch = { fg = colors.warning },
+    NoiceCmdlinePopup = { bg = colors.quick_input_bg },
+    NoiceCmdlinePopupBorder = { fg = colors.border },
+    NoiceCmdlinePopupTitle = { fg = colors.sidebar_title },
+    
+    -- Bufferline
+    BufferLineFill = { bg = colors.sidebar_bg },
+    BufferLineBackground = { fg = colors.line_number, bg = colors.sidebar_bg },
+    BufferLineBufferSelected = { fg = colors.fg, bg = colors.bg, bold = true },
+    BufferLineBufferVisible = { fg = colors.line_number, bg = colors.sidebar_bg },
+    BufferLineIndicatorSelected = { fg = colors.function_name or "#bd9cfe" },
+    BufferLineIndicatorVisible = { fg = colors.border },
+    BufferLineSeparator = { fg = colors.sidebar_border, bg = colors.sidebar_bg },
+    BufferLineSeparatorSelected = { fg = colors.border, bg = colors.bg },
+    BufferLineSeparatorVisible = { fg = colors.sidebar_border, bg = colors.sidebar_bg },
+    BufferLineCloseButton = { fg = colors.line_number, bg = colors.sidebar_bg },
+    BufferLineCloseButtonSelected = { fg = colors.error, bg = colors.bg },
+    BufferLineCloseButtonVisible = { fg = colors.line_number, bg = colors.sidebar_bg },
+    BufferLineModified = { fg = colors.git_change, bg = colors.sidebar_bg },
+    BufferLineModifiedSelected = { fg = colors.git_change, bg = colors.bg },
+    BufferLineModifiedVisible = { fg = colors.git_change, bg = colors.sidebar_bg },
+    BufferLineTab = { fg = colors.line_number, bg = colors.sidebar_bg },
+    BufferLineTabSelected = { fg = colors.fg, bg = colors.bg },
+    BufferLineTabClose = { fg = colors.error, bg = colors.sidebar_bg },
+    
+    -- Indent Blankline
+    IndentBlanklineChar = { fg = colors.tree_indent },
+    IndentBlanklineContextChar = { fg = colors.border },
+    IndentBlanklineSpaceChar = { fg = colors.tree_indent },
+    IndentBlanklineContextStart = { sp = colors.border, underline = true },
+    
+    -- Dashboard
+    DashboardHeader = { fg = colors.function_name or "#bd9cfe" },
+    DashboardFooter = { fg = colors.comment },
+    DashboardCenter = { fg = colors.fg },
+    DashboardShortCut = { fg = colors.line_number },
+    DashboardIcon = { fg = colors.function_name or "#bd9cfe" },
+    
+    -- Alpha
+    AlphaHeader = { fg = colors.function_name or "#bd9cfe" },
+    AlphaFooter = { fg = colors.comment },
+    AlphaButtons = { fg = colors.fg },
+    AlphaShortcut = { fg = colors.line_number },
   }
   
   -- Apply highlights

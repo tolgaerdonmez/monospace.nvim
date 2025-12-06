@@ -180,6 +180,16 @@ The theme includes support for:
 - **Terminal**: ANSI color support
 - **Lualine**: Built-in theme support (automatically configured)
 - **Statusline**: Compatible with most statusline plugins
+- **UI Panels**: Full theming for common Neovim UI plugins:
+  - **NvimTree** (File Explorer) - Matches VSCode sidebar colors
+  - **Telescope** (Command Palette) - Matches VSCode quick input
+  - **WhichKey** - Keybinding helper
+  - **Notify** - Notification system
+  - **Noice** - Command line UI
+  - **Bufferline** - Tab bar
+  - **Indent Blankline** - Indentation guides
+  - **Dashboard/Alpha** - Startup screen
+  - **Popup Menus** - Dropdown menus match VSCode styling
 
 ### Lualine Integration
 
